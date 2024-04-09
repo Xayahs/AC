@@ -1,0 +1,158 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/Content/layui/css/layui.css" />
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+    <title>@ViewBag.Title</title>
+    <style>
+        html {
+            height: 100%;
+            width: 100%;
+        }
+
+        body {
+            height: 100%;
+            width: 100%;
+            background-image: url('../../Image/denglu.jpg');
+        }
+
+        #tipMsg {
+            color: red;
+            font-size: 20px;
+            /*display: none;*/
+        }
+
+        div.container-fluid {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        div.form-container {
+            position: absolute;
+            width: 400px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 5px;
+            padding: 20px;
+            margin-right: 500px;
+        }
+
+        input.btn-block {
+            letter-spacing: 10px;
+        }
+
+        #main {
+            height: 100%;
+            width: 100%;
+            margin: 0px;
+        }
+
+        #login {
+            position: absolute;
+            left: 40%;
+            top: 40%;
+        }
+
+        div.layui-form-switch {
+            margin: 0 3px;
+            vertical-align: baseline;
+            height: 24px;
+            line-height: 24px;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="container-fluid">
+        <div class="form-container">
+            <form class="layui-form" lay-filter="formUser">
+                <div class="form-group">
+                    <label for="txtUserId">姓名</label>
+                    <input type="text" class="form-control" id="name" placeholder="姓名">
+                </div>
+                <div class="form-group">
+                    <label for="txtUserId">用户名</label>
+                    <input type="text" class="form-control" id="username" placeholder="工号">
+                </div>
+                <div class="form-group">
+                    <label for="txtUserPwd">密码</label>
+                    <input type="password" class="form-control" id="pwd" placeholder="密码">
+                </div>
+                <div class="form-group">
+                    <label for="txtUserPwd">邮箱</label>
+                    <input type="text" class="form-control" id="email" placeholder="邮箱">
+                </div>
+                <div class="form-group">
+                    <label for="txtUserPwd">验证码</label>
+                    <input type="text" class="form-control" id="validation" placeholder="验证码">
+                </div>
+
+                <div class="form-group">
+                    <span id="tipMsg"></span>
+                </div>
+                @*<button class="layui-btn" lay-submit="" lay-filter="demo1" onclick="getValidation()">获取验证码</button>*@
+                <input type="button" class="layui-btn" lay-filter="demo1" onclick="getValidation()" value="获取验证码" />
+                <input type="button" class="btn btn-primary btn-block" id="btnLogin" onclick="Sign()" value="注册" />
+                @*<button class="btn btn-primary btn-block" id="btnLogin" onclick="Sign()">注册</button>*@
+
+
+            </form>
+        </div>
+    </div>
+
+    @*<div id="main">
+            @RenderBody()
+        </div>*@
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Content/layui/layui.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script>
+        function Sign() {
+            var username = $("#username").val();
+            var name = $("#name").val();
+            var pwd = $("#pwd").val();
+            var email = $("#email").val();
+            var yzm = $("#validation").val();
+            var users = {
+                Name: name,
+                UserName: username,
+                Pwd: pwd,
+                Email: email,
+                yzm: yzm
+            };
+            $.post(`/Login/SignIn`, users, function (data) {
+                alert(data);
+                if (data == "注册成功") {
+                    window.location.href = "/Login/Index";
+                }
+            })
+        }
+
+        function getValidation() {
+            var email = $("#email").val();
+            if (email == "") {
+                alert("请填写邮箱后获取验证码");
+                return;
+            }
+            $.post("/Login/GetValidation", { email: email }, function (data) {
+
+                if (data == "true") {
+                    alert("邮件发送成功");
+                }
+            });
+        }
+
+
+
+
+
+    </script>
+</body>
+</html>

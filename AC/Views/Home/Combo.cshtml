@@ -1,0 +1,420 @@
+﻿@{
+    Layout = null;
+}
+
+
+<style>
+
+    html {
+        width: 100%;
+        height: 100%;
+    }
+
+    body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+    }
+
+    .box {
+        width: 100%;
+        height: 100%;
+    }
+
+    .layui-tab {
+        height: 100%;
+        width: 100%;
+    }
+
+    .layui-tab-content {
+        height: 100%;
+        width: 100%;
+    }
+
+    .right {
+        position: relative;
+        height: 100%;
+        width: 80%;
+        float: left;
+    }
+
+
+    .title {
+        position: relative;
+        height: 100.76px;
+        width: 1100.25px;
+        left: 50px;
+        background-color: rgb(242,242,242);
+    }
+
+    .button1 {
+        position: relative;
+        width: 80px;
+        height: 40px;
+        background-color: rgb(1,150,136);
+        color: white;
+        border: none;
+        float: left;
+    }
+
+    .form1 {
+        height: 40px;
+        position: relative;
+        top: 31px;
+    }
+
+    .select2 {
+        position: relative;
+        height: 40px;
+        width: 200px;
+    }
+
+    .box2 {
+        height: 50px;
+        width: 600px;
+        position: relative;
+        float: left;
+        border: gray;
+    }
+
+    .select1 {
+        height: 35px;
+        width: 120px;
+    }
+
+    .button2 {
+        position: relative;
+        width: 80px;
+        height: 40px;
+        background-color: rgb(1,150,136);
+        color: white;
+        border: none;
+        float: left;
+        left: -100px;
+    }
+
+    .button3 {
+        position: relative;
+        width: 80px;
+        height: 40px;
+        background-color: rgb(1,150,136);
+        color: white;
+        border: none;
+        float: left;
+        left: -50px;
+    }
+
+    .add {
+        position: relative;
+        width: 80px;
+        height: 40px;
+        background-color: rgb(1,150,136);
+        color: white;
+        border: none;
+        float: left;
+    }
+
+
+
+
+    .inner {
+        position: relative;
+        left: 50px;
+        top: 50px;
+        border: 1px solid rgb(242,242,242);
+    }
+
+
+
+    .update {
+        position: relative;
+        font-size: 20px;
+        width: 100px;
+        height: 30px;
+        background-color: rgb(30,159,255);
+        float: left;
+        text-align: center;
+        border: none;
+    }
+
+    .delete {
+        position: relative;
+        font-size: 20px;
+        width: 100px;
+        height: 30px;
+        background-color: rgb(255,87,34);
+        float: right;
+        text-align: center;
+        border: none;
+    }
+
+
+    .glyphicon {
+        position: relative;
+        top: 20px;
+        left: 100px;
+    }
+
+    .layui-tab-content {
+        width: 1000px;
+    }
+
+    .form-group {
+        position: absolute;
+        left: 70px;
+        top: 20px;
+    }
+
+    #sumbit {
+        position: relative;
+        font-size: 20px;
+        width: 100px;
+        height: 30px;
+        background-color: rgb(1,150,136);
+        color: white;
+        border: none;
+        left: 50px;
+        top: 20px;
+    }
+
+    #content {
+        width: 300px;
+        height: 100px;
+    }
+
+    #Updatebtn {
+        position: relative;
+        width: 100px;
+        height: 30px;
+        background-color: rgb(1,150,136);
+        color: white;
+        border: none;
+        left: 100px;
+        top: 30px;
+    }
+</style>
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/layui/2.5.6/css/layui.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/layui/2.5.6/layui.js"></script>
+
+
+
+
+<div class="box">
+
+    <div class="right">
+        <div class="title">
+            <form class="form1">
+                @*<button class="button1">⊕添加</button>*@
+                <div class="box2">
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp查询条件：<select class="select1" id="select1">
+                        <option>套餐编号</option>
+                        <option>套餐内容</option>
+                    </select>
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp查询值：<input type="text" class="select2" id="select2">
+                </div>
+                <input type="button" value="查询" class="button2" id="btnQuery" />
+                @*<button class="button2">查询</button>*@
+                <input type="button" value="刷新" class="button3" onclick="refurbish()" />
+
+            </form>
+        </div>
+        <div class="inner">
+            <table cellspacing="0" id="Combo" class="layui-hide" lay-filter="Combo">
+            </table>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+
+<script type="text/html" id="bar">
+    <input type="button" value="删除" class="delete" onclick="deleteTable()" />
+    <input type="button" value="修改" class="update" id="update" onclick="updateTable()" />
+</script>
+
+
+
+<script>
+    var Id;
+    var table;
+    layui.use(['jquery', 'table', 'form', 'laydate', 'element'], function () {
+        table = layui.table;
+        table.render({
+            elem: '#Combo',
+            url: '/Home/GetCombo',
+            request: {
+                pageName: 'pageindex',
+                limitName: 'pagesize',
+            },
+            method: 'post',
+            cols: [[
+                { field: 'ID', width: 200, title: '套餐编号' },
+                { field: 'Content', width: 200, title: '套餐内容' },
+                { field: 'Price', width: 100, title: '套餐价格' },
+                { field: 'Sell', width: 200, title: '销量' },
+                { field: '', width: 250, title: '操作', toolbar: "#bar" }
+            ]],
+            page: true,
+            parseData: function (res) {
+                console.log(res);
+                var data = JSON.parse(res);
+                return {
+                    "code": 0,
+                    "count": data.PageTotal,
+                    "data": data.DataSources
+                };
+            }
+        });
+        $("#btnQuery").on('click', function (e) {
+            // alert("通过on的方式绑定");
+            var Name = $("#select1").val();//# 表示id选择器 . class选择器 标签选择器 获取到科室名称
+            var Code = $("#select2").val();//获取到科室编码
+            //当我给对应的数据没有赋值时，不传递给后端
+            //按照以前的思路
+            //后端写一个接口 然后使用post调用这个接口 然后把这两个参数传递进去
+            table.reload('Combo', {
+                url: '/Home/SelectCombo',
+                where: {
+                    condition: Name,
+                    num: Code,
+                },
+                parseData: function (res) {
+                    console.log(res);
+                    var data = JSON.parse(res);
+                    return {
+                        "code": 0,
+                        "count": data.PageTotal,
+                        "data": data.DataSources
+                    };
+                }
+            })
+        });
+    });
+
+    //table.render({
+    //    elem: '#Combo',
+    //    url: '/Home/GetCombo',
+    //    request: {
+    //        pageName: 'pageindex',
+    //        limitName: 'pagesize',
+    //    },
+    //    method: 'post',
+    //    cols: [[
+    //        { field: 'ID', width: 200, title: '套餐编号' },
+    //        { field: 'Content', width: 200, title: '套餐内容' },
+    //        { field: 'Price', width: 100, title: '套餐价格' },
+    //        { field: 'Sell', width: 200, title: '销量' },
+    //        { field: '', width: 250, title: '操作', toolbar: "#bar" }
+    //    ]],
+    //    page: true,
+    //    parseData: function (res) {
+    //        console.log(res);
+    //        var data = JSON.parse(res);
+    //        return {
+    //            "code": 0,
+    //            "count": data.PageTotal,
+    //            "data": data.DataSources
+    //        };
+    //    }
+    //});
+    function refurbish() {
+        location.reload();
+    }
+
+
+
+    $("#btnquery").on('click', function (e) {
+        // alert("通过on的方式绑定");
+        var name = $("#select1").val();//# 表示id选择器 . class选择器 标签选择器 获取到科室名称
+        var code = $("#select2").val();//获取到科室编码
+        //当我给对应的数据没有赋值时，不传递给后端
+        //按照以前的思路
+        //后端写一个接口 然后使用post调用这个接口 然后把这两个参数传递进去
+        layui.table.reload('combo', {
+            url: '/home/selectcombo',
+            where: {
+                condition: name,
+                num: code,
+            },
+            parsedata: function (res) {
+                console.log(res);
+                //var data = json.parse(res);
+                return {
+                    "code": 0,
+                    "count": res.pagetotal,
+                    "data": res.datasources
+                };
+            }
+        })
+    });
+
+    function deleteTable() {
+        layui.table.on('row(Combo)', function (obj) {
+            var data2 = obj.data;
+            var value = JSON.parse(JSON.stringify(data2));
+            var Name = value.ID;
+
+            $.post(`/Home/DeleteCombo`, { num: Name }, function (data) {
+                alert(data);
+                refurbish();
+            })
+        });
+    }
+
+    function updateTable() {
+
+        layui.table.on('row(Combo)', function (obj) {
+            var data2 = obj.data;
+            var value = JSON.parse(JSON.stringify(data2));
+            var Name = value.Content;
+            Id = value.ID;
+            layer.open({
+                type: 1,
+                skin: 'layui-layer-rim', //加上边框
+                area: ['420px', '240px'], //宽高
+                content: `<div class="form-group">
+                    <label for="txtUserId">套餐内容:</label>
+                    <input type="text"  id="username1" >
+<br/>
+                    <label for="txtUserId">套餐价格:</label>
+                    <input type="text"  id="username2" >
+<br/>
+                   <input type="button" id=sumbit value="确认修改" onclick=submit()>
+                </div>`,
+
+            });
+
+
+
+
+        });
+
+
+    }
+    function submit() {
+        var name = $("#username1").val();
+        var price = $("#username2").val();
+        $.post(`/Home/UpdateCombo`, { name: name, num: price }, function (data) {
+            alert(data);
+            refurbish();
+        })
+    }
+
+
+
+
+
+
+
+
+
+
+</script>
+

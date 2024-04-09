@@ -1,0 +1,322 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/layui/2.5.6/css/layui.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/layui/2.5.6/layui.js"></script>
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <style>
+
+
+        body {
+            overflow: hidden;
+        }
+
+        .box1 {
+            position: absolute;
+            height: 740px;
+            width: 450px;
+            left: 500px;
+            border: solid;
+            border-color: rgb(249,249,249);
+        }
+
+        .imgs {
+            width: 450px;
+            height: 150px;
+        }
+
+        .ResName {
+            position: absolute;
+            width: 390px;
+            height: 80px;
+            border: solid;
+            border-color: white;
+            border-radius: 10px;
+            top: 100px;
+            margin-left: 50px;
+            background-color: white;
+            z-index: 3;
+        }
+
+        .logo {
+            position: absolute;
+            width: 60px;
+            height: 50px;
+            left: 10px;
+        }
+
+        .tit {
+            position: absolute;
+            left: 80px;
+            font-weight: normal;
+        }
+
+        .dist {
+            position: absolute;
+            top: 30px;
+            font-weight: normal;
+            left: 100px;
+        }
+
+        .imgdist {
+            position: absolute;
+            top: 27px;
+            left: 70px
+        }
+
+        .imgmon {
+            position: absolute;
+            top: 27px;
+            left: 167px
+        }
+
+        .money {
+            position: absolute;
+            top: 30px;
+            font-weight: normal;
+            left: 195px;
+        }
+
+        .imgtime {
+            position: absolute;
+            top: 25px;
+            left: 262px;
+        }
+
+        .time {
+            position: absolute;
+            top: 30px;
+            font-weight: normal;
+            left: 290px;
+        }
+
+        .menu {
+            position: absolute;
+            background-color: rgb(246,246,246);
+            width: 130px;
+            height: 590px;
+            z-index: 2;
+        }
+
+        .milktea {
+            position: absolute;
+            z-index: 4;
+            top: 50px;
+            width: 130px;
+            height: 30px;
+        }
+
+        .fireimg {
+            height: 30px;
+            width: 30px;
+        }
+
+        .fruitimg {
+            height: 30px;
+            width: 30px;
+        }
+
+        .coldimg {
+            height: 30px;
+            width: 30px;
+        }
+
+        .littleimg {
+            height: 30px;
+            width: 30px;
+        }
+
+        .fruittea {
+            position: absolute;
+            z-index: 4;
+            top: 110px;
+            width: 130px;
+            height: 30px;
+        }
+
+        .sunimg {
+            height: 30px;
+            width: 30px;
+        }
+
+        .coldtea {
+            position: absolute;
+            z-index: 4;
+            top: 170px;
+            width: 130px;
+            height: 30px;
+        }
+
+        .little {
+            position: absolute;
+            z-index: 4;
+            top: 230px;
+            width: 130px;
+            height: 30px;
+        }
+
+        .combo {
+            position: absolute;
+            z-index: 4;
+            top: 290px;
+            width: 130px;
+            height: 30px;
+        }
+
+        .main {
+            position: absolute;
+            overflow: hidden;
+            width: 300px;
+            height: 560px;
+            z-index: 4;
+            left: 135px;
+            margin-top: 30px;
+        }
+
+        .ifr {
+            height: 560px;
+            border: none;
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
+
+        #gouwu {
+            position: fixed;
+            background-color: black;
+            width: 65px;
+            height: 35px;
+            z-index: 5;
+            top: 707px;
+            left: 570px;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+        }
+
+        #hh {
+            width: 60px;
+            height: 60px;
+            position: relative;
+            top: -15px;
+            z-index: 3;
+            left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box1">
+        <img src="~/Image/naicha.jpg" class="imgs"/>
+        <div class="ResName">
+            <img src="~/Image/logo.jpg" class=" logo" />
+            <h3 class="tit">哈哈奶茶店</h3>
+            <img src="~/Image/dist.png" class="imgdist" />
+            <h6 class="dist">距离1.5km</h6>
+            <img src="~/Image/money.png" class="imgmon" />
+            <h6 class="money">配送费5元</h6>
+            <img src="~/Image/time.png" class="imgtime" />
+            <h6 class="time">配送时间15min</h6>
+        </div>
+
+        <div class="menu">
+            <span id="menu1" class="milktea" aria-hidden="true" style="color:black" onclick="MilkTea()"><img src="~/Image/fire.png" class="fireimg" /> 超人气奶茶</span>
+            <span id="menu2" class="fruittea" aria-hidden="true" style="color:black" onclick="Fruit()"><img src="~/Image/fruit.png" class="fruitimg" /> 时令水果茶</span>
+            <span id="menu3" class="coldtea" aria-hidden="true" style="color:black" onclick="ColdTea()"><img src="~/Image/cold.png" class="coldimg" /> 冷萃茶</span>
+            <span id="menu4" class="little" aria-hidden="true" style="color:black" onclick="Little()"><img src="~/Image/little.png" class="littleimg" /> 加料区</span>
+            <span id="menu5" class="combo" aria-hidden="true" style="color:black" onclick="Combo()"><img src="~/Image/sun.png" class="sunimg" /> 聚会区</span>
+        </div>    
+        
+        <div class="main">
+         <iframe src="/Front/Food" class="ifr" id="ifrid" frameborder="0" ></iframe>    
+        </div>
+
+        <div id="gouwu">
+            <img src="~/Image/hh.png" id="hh"/>
+            
+        </div>
+
+    </div>
+
+
+
+
+    <script>
+
+        var point=11;
+
+
+
+
+        function Fruit() {
+            document.getElementById("ifrid").src = "/Front/FruitTea";
+        }
+
+        function MilkTea() {
+            document.getElementById("ifrid").src = "/Front/Food";
+        }
+
+        function ColdTea() {
+            document.getElementById("ifrid").src = "/Front/ColdTea";
+        }
+
+        function Little() {
+            document.getElementById("ifrid").src = "/Front/Little";
+        }
+
+        function Combo() {
+            document.getElementById("ifrid").src = "/Front/Combo";
+        }
+
+        var oDiv = document.getElementById("menu1");     //鼠标悬停离开
+        oDiv.onmouseover = function () {
+            this.style.backgroundColor = "white";
+        }
+        oDiv.onmouseout = function () {
+            this.style.backgroundColor = "#F6F6F6";
+        }
+        var oDiv = document.getElementById("menu2");
+        oDiv.onmouseover = function () {
+            this.style.backgroundColor = "white";
+        }
+        oDiv.onmouseout = function () {
+            this.style.backgroundColor = "#F6F6F6";
+        }
+
+        var oDiv = document.getElementById("menu3");
+        oDiv.onmouseover = function () {
+            this.style.backgroundColor = "white";
+        }
+        oDiv.onmouseout = function () {
+            this.style.backgroundColor = "#F6F6F6";
+        }
+
+        var oDiv = document.getElementById("menu4");
+        oDiv.onmouseover = function () {
+            this.style.backgroundColor = "white";
+        }
+        oDiv.onmouseout = function () {
+            this.style.backgroundColor = "#F6F6F6";
+        }
+
+        var oDiv = document.getElementById("menu5");
+        oDiv.onmouseout = function () {
+            this.style.backgroundColor = "#F6F6F6";
+        }
+        oDiv.onmouseout = function () {
+            this.style.backgroundColor = "#F6F6F6";
+        }
+
+    </script>
+
+</body>
+</html>

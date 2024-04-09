@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/layui/2.5.6/css/layui.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/layui/2.5.6/layui.js"></script>
+    <style>
+
+        html {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+
+        .box {
+            width: 100%;
+            height: 100%;
+        }
+
+        .left {
+            position: relative;
+            width: 20%;
+            height: 100%;
+            background-color: rgb(32,34,42);
+            color: aliceblue;
+            float: left;
+        }
+
+        .glyphicon {
+            position: relative;
+            top: 20px;
+            left: 100px;
+        }
+
+        .First {
+            position: relative;
+            height: 70px;
+            text-align: center;
+            line-height: 70px;
+            left: -30px;
+            font-size: 20px;
+        }
+
+        .information {
+            position: relative;
+            width: 100%;
+            height: 70px;
+            font-size: 15px;
+        }
+
+        #ss {
+            position: relative;
+            left: 30px;
+        }
+
+        .right {
+            position: relative;
+            height: 100%;
+            width: 80%;
+            float: left;
+        }
+
+
+
+        iframe {
+            position: relative;
+            height: 575px;
+            width: 1221px;
+        }
+    </style>
+</head>
+<body>
+
+
+    <div class="box">
+        <div class="left">
+            <div class="First">AC餐厅</div>
+            <div class="information">
+                <a class="menu-link" href="javascript:;" data-action="/Home/User" data-menuid="index">
+                    <span id="ss" class="glyphicon glyphicon-home" aria-hidden="true" style="color:white"> 用户管理</span>
+                </a>
+            </div>
+
+            <div class="information">
+                <a class="menu-link" href="javascript:;" data-action="/Home/Order" data-menuid="book_list">
+                    <span id="ss" class="glyphicon glyphicon-tasks" aria-hidden="true" style="color:white"> 订单管理</span>
+                </a>
+            </div>
+
+            <div class="information">
+                <a class="menu-link" href="javascript:;" data-action="/Home/TeaMenu" data-menuid="Good_list">
+                    <span id="ss" class="glyphicon glyphicon-tasks" aria-hidden="true" style="color:white"> 商品管理</span>
+                </a>
+            </div>
+
+            <div class="information">
+                <a class="menu-link" href="javascript:;" data-action="/Home/Combo" data-menuid="Combo-list">
+                    <span id="ss" class="glyphicon glyphicon-education" aria-hidden="true" style="color:white"> 套餐管理</span>
+                </a>
+            </div>
+            <div class="information">
+                <a class="menu-link" href="javascript:;" data-action="/Home/VIP" data-menuid="VIP-list">
+                    <span id="ss" class="glyphicon glyphicon-education" aria-hidden="true" style="color:white"> 店铺会员管理</span>
+                </a>
+            </div>
+        </div>
+        <div class="right">
+            <div>
+                <div class="layui-tab" lay-filter="tabContainer" lay-allowclose="true">
+                    <ul class="layui-tab-title"></ul>
+                    <div class="layui-tab-content">
+                        @RenderBody()
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+
+        layui.use(['element'], function () {
+            $('a.menu-link').click(function (e) {
+
+                var url = $(this).attr('data-action');
+                var tabName = $(this).text();
+                var tabid = $(this).attr('data-menuid');
+                var tabFilter = 'tabContainer';
+                var tabExist = $(`ul.layui-tab-title>li[lay-id=${tabid}]`).length > 0;
+                if (!tabExist) {
+                    layui.element.tabAdd(tabFilter, {
+                        title: tabName,//tab名称
+                        content: `<iframe name="frmContent" src="${url}" frameborder="0"></iframe>`, //tab的内容
+                        id: tabid//tab的id，用于change和close
+                    });
+                } 
+                layui.element.tabChange(tabFilter, tabid);
+            }
+            )
+        })
+
+    </script>
+</body>
+</html>
